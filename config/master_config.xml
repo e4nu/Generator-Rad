@@ -43,6 +43,8 @@
    <config alg="genie::SKKinematicsGenerator">           SKKinematicsGenerator.xml           </config>
    <config alg="genie::DMELKinematicsGenerator">         DMELKinematicsGenerator.xml         </config>
    <config alg="genie::DMDISKinematicsGenerator">        DMDISKinematicsGenerator.xml        </config>
+   <config alg="genie::GLRESKinematicsGenerator">        GLRESKinematicsGenerator.xml        </config>
+   <config alg="genie::HEDISKinematicsGenerator">        HEDISKinematicsGenerator.xml        </config>
    <config alg="genie::IBDHadronicSystemGenerator">      IBDHadronicSystemGenerator.xml      </config>
    <config alg="genie::QELHadronicSystemGenerator">      QELHadronicSystemGenerator.xml      </config>
    <config alg="genie::COHHadronicSystemGenerator">      COHHadronicSystemGenerator.xml      </config>
@@ -57,6 +59,7 @@
    <config alg="genie::AMNuGammaGenerator">              AMNuGammaGenerator.xml              </config>
    <config alg="genie::MECGenerator">                    MECGenerator.xml                    </config>
    <config alg="genie::GLRESGenerator">                  GLRESGenerator.xml                  </config>
+   <config alg="genie::HEDISGenerator">                  HEDISGenerator.xml                  </config>
    <config alg="genie::CEvNSEventGenerator">             CEvNSEventGenerator.xml             </config>
    <config alg="genie::QELEventGeneratorSuSA">           QELEventGeneratorSuSA.xml           </config>
    <config alg="genie::NucleonDecayPrimaryVtxGenerator"> NucleonDecayPrimaryVtxGenerator.xml </config>
@@ -82,6 +85,7 @@
    <config alg="genie::DMDISInteractionListGenerator">         DMDISInteractionListGenerator.xml     </config>
    <config alg="genie::IBDInteractionListGenerator">           IBDInteractionListGenerator.xml       </config>
    <config alg="genie::CEvNSInteractionListGenerator">         CEvNSInteractionListGenerator.xml     </config>
+   <config alg="genie::HEDISInteractionListGenerator">         HEDISInteractionListGenerator.xml     </config>
    <config alg="genie::DummyInteractionListGenerator">         Default.xml                           </config>
    <config alg="genie::NNBarOscDummyInteractionListGenerator"> Default.xml                           </config>
    <config alg="genie::InteractionListAssembler">              InteractionListAssembler.xml          </config>
@@ -101,6 +105,7 @@
    <config alg="genie::Pythia6Hadro2019">        Pythia6Hadro2019.xml        </config>
    <config alg="genie::Pythia8Hadro2019">        Pythia8Hadro2019.xml        </config>
    <config alg="genie::AGCharm2019">             AGCharm2019.xml             </config>
+   <config alg="genie::LeptoHadronization">      LeptoHadronization.xml      </config>
 
    <!-- ****** CONFIGURATION FOR PARTON DENSITY FUNCTION ALGORITHMS ****** -->
    <config alg="genie::GRV98LO">                     GRV98LO.xml                     </config>
@@ -149,6 +154,8 @@
    <config alg="genie::DMElectronXSec">              DMElectronXSec.xml              </config>
    <config alg="genie::DMELXSec">                    DMELXSec.xml                    </config>
    <config alg="genie::DMDISXSec">                   DMDISXSec.xml                   </config>
+   <config alg="genie::GLRESXSec">                   GLRESXSec.xml                   </config>
+   <config alg="genie::HEDISXSec">                   HEDISXSec.xml                   </config>
 
    <!--  ****** CONFIGURATION FOR XSEC ALGORITHMS ****** -->
    <config alg="genie::AhrensNCELPXSec">                    AhrensNCELPXSec.xml                    </config>
@@ -195,6 +202,7 @@
    <config alg="genie::NNBarOscDummyPXSec">                 Default.xml                            </config>
    <config alg="genie::ReinSehgalRESXSecFast">              ReinSehgalRESXSecFast.xml              </config>
    <config alg="genie::HybridXSecAlgorithm">                HybridXSecAlgorithm.xml                </config>
+   <config alg="genie::HEDISPXSec">                         HEDISPXSec.xml                          </config>
 
    <!--  ****** CONFIGURATION FOR NUCLEAR ENV. ALGORITHMS ****** -->
    <config alg="genie::NuclearModelMap">             NuclearModelMap.xml             </config>
@@ -237,4 +245,8 @@
    <!-- ****** CONFIGURATION FOR REWEIGHT ALGORITHMS ****** -->
    <config alg="genie::rew::GSystUncertaintyTable">     GSystUncertaintyTable.xml        </config>
 
+ <!-- ****** EvtLib / EventLibraryInterface ****** -->
+   <config alg="genie::evtlib::EventLibraryInterface">          EventLibraryInterface.xml          </config>
+   <config alg="genie::evtlib::EvtLibInteractionListGenerator"> EvtLibInteractionListGenerator.xml </config>
+   <config alg="genie::evtlib::EvtLibPXSec">                    EvtLibPXSec.xml                    </config>
 </genie_config>
