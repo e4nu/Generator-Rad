@@ -499,6 +499,15 @@ void MECGenerator::DecayNucleonCluster(GHepRecord * event) const
 
   // get di-nucleon cluster
   int nucleon_cluster_id = 5;
+  TObjArrayIter piter(event);
+  GHepParticle * p = 0;
+  unsigned int ipos = 0;
+  while( (p = (GHepParticle *) piter.Next()) )
+  {
+     if (p->FirstMother()==2) {nucleon_cluster_id = ipos; break;}
+     ipos = ipos+1;
+  }
+
   GHepParticle * nucleon_cluster = event->Particle(nucleon_cluster_id);
   assert(nucleon_cluster);
 
