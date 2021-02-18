@@ -20,4 +20,5 @@
 #pragma link C++ class genie::HadronicSystemGenerator;
 #pragma link C++ class genie::KineGeneratorWithCache;
 
+
 #endif
