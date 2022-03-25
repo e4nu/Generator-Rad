@@ -1,8 +1,8 @@
 //____________________________________________________________________________
 /*
- Copyright (c) 2003-2020, The GENIE Collaboration
+ Copyright (c) 2003-2022, The GENIE Collaboration
  For the full text of the license visit http://copyright.genie-mc.org
- 
+
  Costas Andreopoulos <constantinos.andreopoulos \at cern.ch>
  University of Liverpool & STFC Rutherford Appleton Laboratory
 
@@ -403,6 +403,14 @@ bool genie::pdg::Is2NucleonCluster(int pdgc)
       pdgc == kPdgClusterNP   ||
       pdgc == kPdgClusterPP
    );
+}
+//____________________________________________________________________________
+bool genie::pdg::IsDarkSectorParticle(int pdgc)
+{
+  return (
+    pdgc == kPdgDarkNeutrino ||
+    pdgc == kPdgDNuMediator
+    );
 }
 //____________________________________________________________________________
 int genie::pdg::GeantToPdg(int geant_code)

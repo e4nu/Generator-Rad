@@ -21,7 +21,7 @@
 
 \created  Mar 22, 2016
 
-\cpright  Copyright (c) 2003-2020, The GENIE Collaboration
+\cpright  Copyright (c) 2003-2022, The GENIE Collaboration
           For the full text of the license visit http://copyright.genie-mc.org
 */
 //____________________________________________________________________________
@@ -31,6 +31,8 @@
 
 #include "Framework/EventGen/XSecAlgorithmI.h"
 #include "Physics/HadronTensors/HadronTensorModelI.h"
+#include "Physics/Common/XSecScaleI.h"
+#include "Physics/Common/QvalueShifter.h"
 
 namespace genie {
 
@@ -64,6 +66,8 @@ private:
 
   const XSecIntegratorI *  fXSecIntegrator; // Numerical integrator (GSL)
 
+  const XSecScaleI * fMECScaleAlg ; // Optional algorithm to scale the xsec as a function of W
+  const QvalueShifter * fQvalueShifter ; // Optional algorithm to retrieve the qvalue shift for a given target
 };
 
 }       // genie namespace

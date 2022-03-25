@@ -13,8 +13,8 @@
 
 \created   May 06, 2004
 
-\cpright   Copyright (c) 2003-2020, The GENIE Collaboration
-           For the full text of the license visit http://copyright.genie-mc.org           
+\cpright   Copyright (c) 2003-2022, The GENIE Collaboration
+           For the full text of the license visit http://copyright.genie-mc.org
 */
 //____________________________________________________________________________
 
@@ -85,6 +85,8 @@ namespace pdg
   bool IsHadron           (int pdgc);
   bool IsBaryonResonance  (int pdgc);
   bool Is2NucleonCluster  (int pdgc);
+
+  bool IsDarkSectorParticle   (int pdgc);
 
   int  SwitchProtonNeutron    (int pdgc);
   int  ModifyNucleonCluster   (int pdgc, int dQ);

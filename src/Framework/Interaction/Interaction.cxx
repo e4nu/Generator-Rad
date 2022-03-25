@@ -1,6 +1,6 @@
 //____________________________________________________________________________
 /*
- Copyright (c) 2003-2020, The GENIE Collaboration
+ Copyright (c) 2003-2022, The GENIE Collaboration
  For the full text of the license visit http://copyright.genie-mc.org
 
  Costas Andreopoulos <constantinos.andreopoulos \at cern.ch>
@@ -8,6 +8,9 @@
 
  Changes required to implement the GENIE Boosted Dark Matter module
  were installed by Josh Berger (Univ. of Wisconsin)
+
+ Changes required to implement the GENIE Dark Neutrino module
+ were installed by Iker de Icaza (Univ. of Sussex)
 */
 //____________________________________________________________________________
 
@@ -141,6 +144,9 @@ int Interaction::FSPrimLeptonPdg(void) const
   if (proc_info.IsNuElectronElastic())
     return kPdgElectron;
 
+  if (proc_info.IsGlashowResonance() || proc_info.IsPhotonResonance())
+    return xclstag.FinalLeptonPdg();
+
   // vN (Weak-NC) or eN (EM)
   if (proc_info.IsWeakNC() || proc_info.IsEM() || proc_info.IsWeakMix() || proc_info.IsDarkMatter()) return pdgc;  // EDIT: DM does not change in FS
 
@@ -149,17 +155,13 @@ int Interaction::FSPrimLeptonPdg(void) const
     int clpdgc;
     if (proc_info.IsIMDAnnihilation())
       clpdgc = kPdgMuon;
-    else if (proc_info.IsGlashowResonance()) {
-      if      ( pdg::IsMuon(xclstag.FinalLeptonPdg())     ) clpdgc = kPdgMuon;
-      else if ( pdg::IsTau(xclstag.FinalLeptonPdg())      ) clpdgc = kPdgTau;
-      else if ( pdg::IsElectron(xclstag.FinalLeptonPdg()) ) clpdgc = kPdgElectron;
-      else if ( pdg::IsPion(xclstag.FinalLeptonPdg())     ) clpdgc = kPdgPiP;
-    }
     else
       clpdgc = pdg::Neutrino2ChargedLepton(pdgc);
     return clpdgc;
   }
-
+  else if (proc_info.IsDarkNeutralCurrent()){
+    return kPdgDarkNeutrino;
+  }
   LOG("Interaction", pWARN)
         << "Could not figure out the final state primary lepton pdg code!!";
 

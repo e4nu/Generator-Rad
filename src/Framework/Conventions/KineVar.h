@@ -10,7 +10,7 @@
 
 \created  May 06, 2004
 
-\cpright  Copyright (c) 2003-2020, The GENIE Collaboration
+\cpright  Copyright (c) 2003-2022, The GENIE Collaboration
           For the full text of the license visit http://copyright.genie-mc.org      
 */
 //____________________________________________________________________________
@@ -53,6 +53,13 @@ typedef enum EKineVar {
   kKVv,
   kKVSelPn,
   kKVSelv,
+  kKVQ0,
+  kKVQ3,
+  kKVSelQ0,
+  kKVSelQ3,
+  kKVn1,
+  kKVn2,
+  kKVn3,
   // put all new enum names right before this line
   // do not change any previous ordering (neither insert nor delete)
   kNumOfKineVar
@@ -93,6 +100,13 @@ public:
       case(kKVv)       : return " *Running* Energy transfer";            break;
       case(kKVSelPn)   : return "*Selected* Hit nucleon momentum";       break;
       case(kKVSelv)    : return "*Selected* Energy transfer";            break;
+      case(kKVQ0)      : return " *Running* Energy transfer (Q0)" ;      break;
+      case(kKVQ3)      : return " *Running* three momentum transfer" ;   break;
+      case(kKVSelQ0)   : return "*Selected* energy transfer (Q0) " ;     break;
+      case(kKVSelQ3)   : return "*Selected* three momentum transfer" ;   break;
+      case(kKVn1)     : return " *Running* Normalized variable n1"  ;   break;
+      case(kKVn2)     : return " *Running* Normalized variable n2"  ;   break;
+      case(kKVn3)     : return " *Running* Normalized variable n3"  ;   break;
 
       default          : return "** Unknown kinematic variable **";      break;
     }

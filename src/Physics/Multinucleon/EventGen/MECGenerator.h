@@ -13,7 +13,7 @@
 
 \created  Sep. 22, 2008
 
-\cpright  Copyright (c) 2003-2020, The GENIE Collaboration
+\cpright  Copyright (c) 2003-2022, The GENIE Collaboration
           For the full text of the license visit http://copyright.genie-mc.org
 */
 //____________________________________________________________________________
@@ -22,6 +22,7 @@
 #define _MEC_GENERATOR_H_
 
 #include <TGenPhaseSpace.h>
+#include "Framework/Utils/Range1.h"
 
 #include "Framework/EventGen/EventRecordVisitorI.h"
 #include "Framework/ParticleData/PDGCodeList.h"
@@ -65,12 +66,18 @@ private:
 
   // Helper function that computes the maximum differential cross section
   // in the kPSTlctl phase space
-  double GetXSecMaxTlctl( const Interaction& inter ) const;
+  double GetXSecMaxTlctl( const Interaction & inter, const Range1D_t & Tl_range, const Range1D_t & ctl_range ) const;
 
   mutable const XSecAlgorithmI * fXSecModel;
   mutable TGenPhaseSpace         fPhaseSpaceGenerator;
   const NuclearModelI *          fNuclModel;
 
+  double fSafetyFactor ; 
+  int fFunctionCalls ; 
+  double fRelTolerance ; // Relative tolerance 
+  int fMinScanPointsTmu ; 
+  int fMinScanPointsCosth ; 
+  
   double fQ3Max;
   bool fDoRadiativeCorrection;
   bool fDoInternal;

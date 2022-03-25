@@ -19,7 +19,7 @@
 
 \created  November 2, 2018
 
-\cpright  Copyright (c) 2003-2019, The GENIE Collaboration
+\cpright  Copyright (c) 2003-2022, The GENIE Collaboration
           For the full text of the license visit http://copyright.genie-mc.org
           or see $GENIE/LICENSE
 */
@@ -31,6 +31,7 @@
 #include "Framework/EventGen/XSecAlgorithmI.h"
 #include "Physics/HadronTensors/HadronTensorI.h"
 #include "Physics/HadronTensors/HadronTensorModelI.h"
+#include "Physics/Common/QvalueShifter.h"
 
 namespace genie {
 
@@ -87,6 +88,7 @@ private:
   /// Alternate cross section model for free nucleon targets
   const XSecAlgorithmI* fFreeNucleonXSecAlg;
 
+  const QvalueShifter * fQvalueShifter ; // Gives the option to retrieve a qvalue shift for a given target
 };
 
 } // genie namespace

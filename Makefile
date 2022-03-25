@@ -11,6 +11,11 @@ SHELL = /bin/sh
 NAME = all
 MAKEFILE = Makefile
 
+# Add empty variable to add flags over command line
+# CDBG +=
+CFLAGS += -w
+
+
 # Include machine specific flags and locations (inc. files & libs)
 #
 include $(GENIE)/src/make/Make.include
@@ -30,6 +35,7 @@ INITIAL_BUILD_TARGETS = print-make-info \
 		   physics-nnbar-oscillation \
 		   physics-boosted-dark-matter \
 		   physics-neutral-heavy-lepton \
+		   physics-dark-neutrino \
 		   tools-flux-drivers \
 		   tools-geometry-drivers \
 		   tools-evtlib \
@@ -91,8 +97,8 @@ physics-neutrino-scattering-modes: FORCE
 	cd ${GENIE}/src/Physics/DeepInelastic/EventGen           &&  $(MAKE) &&   \
 	cd ${GENIE}/src/Physics/Diffractive/XSection             &&  $(MAKE) &&   \
 	cd ${GENIE}/src/Physics/Diffractive/EventGen             &&  $(MAKE) &&   \
-	cd ${GENIE}/src/Physics/GlashowResonance/XSection        &&  $(MAKE) &&   \
-	cd ${GENIE}/src/Physics/GlashowResonance/EventGen        &&  $(MAKE) &&   \
+	cd ${GENIE}/src/Physics/HELepton/XSection                &&  $(MAKE) &&   \
+	cd ${GENIE}/src/Physics/HELepton/EventGen                &&  $(MAKE) &&   \
 	cd ${GENIE}/src/Physics/InverseBetaDecay/XSection        &&  $(MAKE) &&   \
 	cd ${GENIE}/src/Physics/InverseBetaDecay/EventGen        &&  $(MAKE) &&   \
 	cd ${GENIE}/src/Physics/Multinucleon/XSection            &&  $(MAKE) &&   \
@@ -159,6 +165,19 @@ ifeq ($(strip $(GOPT_ENABLE_NEUTRAL_HEAVY_LEPTON)),YES)
 else
 	@echo " "
 	@echo "** Neutral heavy lepton library was not enabled. Skipping..."
+endif
+
+
+physics-dark-neutrino:
+	@echo " "
+	@echo "** Building dark neutrino library..."
+ifeq ($(strip $(GOPT_ENABLE_DARK_NEUTRINO)),YES)
+	cd ${GENIE}/src/Physics/DarkNeutrino/XSection && $(MAKE) && \
+	cd ${GENIE}/src/Physics/DarkNeutrino/EventGen && $(MAKE) && \
+	cd ${GENIE}
+else
+	@echo " "
+	@echo "** Dark neutrino library was not enabled. Skipping..."
 endif
 
 
@@ -325,6 +344,14 @@ endif
 make-install-dirs: FORCE
 	@echo " "
 	@echo "** Creating directory structure for GENIE installation..."
+ifeq (${GENIE_INSTALLATION_PATH},/usr)
+	cd ${GENIE}
+	$(warning Installation in /usr or /usr/local is discouraged)
+endif
+ifeq (${GENIE_INSTALLATION_PATH},/usr/local)
+	cd ${GENIE}
+	$(warning Installation in /usr or /usr/local is discouraged)
+endif
 	[ -d ${GENIE_INSTALLATION_PATH} ] || mkdir ${GENIE_INSTALLATION_PATH}
 	cd ${GENIE_INSTALLATION_PATH}
 	[ -d ${GENIE_BIN_INSTALLATION_PATH}     ] || mkdir ${GENIE_BIN_INSTALLATION_PATH}
@@ -356,6 +383,9 @@ make-install-dirs: FORCE
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/Coherent/XSection
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/Coherent/EventGen
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/Common
+	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/DarkNeutrino
+	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/DarkNeutrino/XSection
+	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/DarkNeutrino/EventGen
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/Decay
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/DeepInelastic
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/DeepInelastic/XSection
@@ -363,9 +393,9 @@ make-install-dirs: FORCE
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/Diffractive
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/Diffractive/XSection
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/Diffractive/EventGen
-	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/GlashowResonance
-	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/GlashowResonance/XSection
-	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/GlashowResonance/EventGen
+	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/HELepton
+	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/HELepton/XSection
+	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/HELepton/EventGen
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/Hadronization
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/HadronTensors
 	mkdir ${GENIE_INC_INSTALLATION_PATH}/Physics/HadronTransport
@@ -428,13 +458,15 @@ copy-install-files: FORCE
 	cd ${GENIE}/src/Physics/Coherent/XSection                &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/Coherent/EventGen                &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/Common                           &&  $(MAKE) install && \
+	cd ${GENIE}/src/Physics/DarkNeutrino/XSection            &&  $(MAKE) install && \
+	cd ${GENIE}/src/Physics/DarkNeutrino/EventGen            &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/Decay                            &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/DeepInelastic/XSection           &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/DeepInelastic/EventGen           &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/Diffractive/XSection             &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/Diffractive/EventGen             &&  $(MAKE) install && \
-	cd ${GENIE}/src/Physics/GlashowResonance/XSection        &&  $(MAKE) install && \
-	cd ${GENIE}/src/Physics/GlashowResonance/EventGen        &&  $(MAKE) install && \
+	cd ${GENIE}/src/Physics/HELepton/XSection                &&  $(MAKE) install && \
+	cd ${GENIE}/src/Physics/HELepton/EventGen                &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/Hadronization                    &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/HadronTransport                  &&  $(MAKE) install && \
 	cd ${GENIE}/src/Physics/HadronTensors                    &&  $(MAKE) install && \
@@ -488,13 +520,15 @@ purge: FORCE
 	cd ${GENIE}/src/Physics/Coherent/XSection                &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/Coherent/EventGen                &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/Common                           &&  $(MAKE) purge && \
+	cd ${GENIE}/src/Physics/DarkNeutrino/XSection            &&  $(MAKE) purge && \
+	cd ${GENIE}/src/Physics/DarkNeutrino/EventGen            &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/Decay                            &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/DeepInelastic/XSection           &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/DeepInelastic/EventGen           &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/Diffractive/XSection             &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/Diffractive/EventGen             &&  $(MAKE) purge && \
-	cd ${GENIE}/src/Physics/GlashowResonance/XSection        &&  $(MAKE) purge && \
-	cd ${GENIE}/src/Physics/GlashowResonance/EventGen        &&  $(MAKE) purge && \
+	cd ${GENIE}/src/Physics/HELepton/XSection                &&  $(MAKE) purge && \
+	cd ${GENIE}/src/Physics/HELepton/EventGen                &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/Hadronization                    &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/HadronTensors                    &&  $(MAKE) purge && \
 	cd ${GENIE}/src/Physics/HadronTransport                  &&  $(MAKE) purge && \
@@ -549,13 +583,15 @@ clean-files: FORCE
 	cd ${GENIE}/src/Physics/Coherent/XSection                &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/Coherent/EventGen                &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/Common                           &&  $(MAKE) clean && \
+	cd ${GENIE}/src/Physics/DarkNeutrino/XSection            &&  $(MAKE) clean && \
+	cd ${GENIE}/src/Physics/DarkNeutrino/EventGen            &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/Decay                            &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/DeepInelastic/XSection           &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/DeepInelastic/EventGen           &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/Diffractive/XSection             &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/Diffractive/EventGen             &&  $(MAKE) clean && \
-	cd ${GENIE}/src/Physics/GlashowResonance/XSection        &&  $(MAKE) clean && \
-	cd ${GENIE}/src/Physics/GlashowResonance/EventGen        &&  $(MAKE) clean && \
+	cd ${GENIE}/src/Physics/HELepton/XSection                &&  $(MAKE) clean && \
+	cd ${GENIE}/src/Physics/HELepton/EventGen                &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/Hadronization                    &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/HadronTensors                    &&  $(MAKE) clean && \
 	cd ${GENIE}/src/Physics/HadronTransport                  &&  $(MAKE) clean && \
@@ -603,6 +639,18 @@ clean-etc: FORCE
 distclean: FORCE
 	@echo " "
 	@echo "** Cleaning GENIE installation... "
+ifeq (${GENIE_INSTALLATION_PATH},/usr)
+	cd ${GENIE}
+	$(warning Installation in /usr or /usr/local is discouraged)
+	$(warning   as "distclean" is too aggressive and removes more than just GENIE libraries)
+	$(error Installation directory ${GENIE_INSTALLATION_PATH} is too precious.  Must be removed by hand)
+endif
+ifeq (${GENIE_INSTALLATION_PATH},/usr/local)
+	cd ${GENIE}
+	$(warning Installation in /usr or /usr/local is discouraged)
+	$(warning   as "distclean" is too aggressive and removes more than just GENIE libraries)
+	$(error Installation directory ${GENIE_INSTALLATION_PATH} is too precious.  Must be removed by hand)
+endif
 	[ ! -d ${GENIE_INSTALLATION_PATH}/include/GENIE ] || rm -rf ${GENIE_INSTALLATION_PATH}/include/GENIE/
 	cd ${GENIE}/src/Framework/Algorithm                      &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Framework/Conventions                    &&  $(MAKE) distclean && \
@@ -623,13 +671,15 @@ distclean: FORCE
 	cd ${GENIE}/src/Physics/Coherent/XSection                &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/Coherent/EventGen                &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/Common                           &&  $(MAKE) distclean && \
+	cd ${GENIE}/src/Physics/DarkNeutrino/XSection            &&  $(MAKE) distclean && \
+	cd ${GENIE}/src/Physics/DarkNeutrino/EventGen            &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/Decay                            &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/DeepInelastic/XSection           &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/DeepInelastic/EventGen           &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/Diffractive/XSection             &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/Diffractive/EventGen             &&  $(MAKE) distclean && \
-	cd ${GENIE}/src/Physics/GlashowResonance/XSection        &&  $(MAKE) distclean && \
-	cd ${GENIE}/src/Physics/GlashowResonance/EventGen        &&  $(MAKE) distclean && \
+	cd ${GENIE}/src/Physics/HELepton/XSection                &&  $(MAKE) distclean && \
+	cd ${GENIE}/src/Physics/HELepton/EventGen                &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/Hadronization                    &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/HadronTransport                  &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/Physics/HadronTensors                    &&  $(MAKE) distclean && \
@@ -662,5 +712,6 @@ distclean: FORCE
 	cd ${GENIE}/src/Apps                                     &&  $(MAKE) distclean && \
 	cd ${GENIE}/src/scripts                                  &&  $(MAKE) distclean && \
 	cd ${GENIE}
+
 
 FORCE:

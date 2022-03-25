@@ -111,7 +111,7 @@
 
 \created September 23, 2005
 
-\cpright Copyright (c) 2003-2020, The GENIE Collaboration
+\cpright Copyright (c) 2003-2022, The GENIE Collaboration
          For the full text of the license visit http://copyright.genie-mc.org
          
 */
@@ -613,6 +613,7 @@ void ConvertToGST(void)
     bool is_res    = proc_info.IsResonant();
     bool is_dis    = proc_info.IsDeepInelastic();
     bool is_coh    = proc_info.IsCoherentProduction();
+    bool is_coh_el = proc_info.IsCoherentElastic();
     bool is_dfr    = proc_info.IsDiffractive();
     bool is_imd    = proc_info.IsInverseMuDecay();
     bool is_imdanh = proc_info.IsIMDAnnihilation();
@@ -625,7 +626,7 @@ void ConvertToGST(void)
     bool is_amnugamma = proc_info.IsAMNuGamma();
 
     if (!hitnucl && neutrino) {
-        assert(is_coh || is_imd || is_imdanh || is_nuel | is_amnugamma);
+        assert(is_coh || is_imd || is_imdanh || is_nuel | is_amnugamma || is_coh_el);
     }
   
     // Hit quark - set only for DIS events

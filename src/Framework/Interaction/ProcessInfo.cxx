@@ -1,6 +1,6 @@
 //____________________________________________________________________________
 /*
- Copyright (c) 2003-2020, The GENIE Collaboration
+ Copyright (c) 2003-2022, The GENIE Collaboration
  For the full text of the license visit http://copyright.genie-mc.org
 
  Costas Andreopoulos <constantinos.andreopoulos \at cern.ch>
@@ -8,6 +8,9 @@
 
  Changes required to implement the GENIE Boosted Dark Matter module
  were installed by Josh Berger (Univ. of Wisconsin)
+
+ Changes required to implement the GENIE Dark Neutrino module
+ were installed by Iker de Icaza (Univ. of Sussex)
 */
 //____________________________________________________________________________
 
@@ -130,6 +133,11 @@ bool ProcessInfo::IsDarkMatterElectronElastic(void) const
   return (fScatteringType == kScDarkMatterElectron);
 }
 //____________________________________________________________________________
+bool ProcessInfo::IsDarkNeutralCurrent(void) const
+{
+  return (fInteractionType == kIntDarkNC);
+}
+//____________________________________________________________________________
 bool ProcessInfo::IsInverseBetaDecay(void) const
 {
   return (fScatteringType == kScInverseBetaDecay);
@@ -138,6 +146,16 @@ bool ProcessInfo::IsInverseBetaDecay(void) const
 bool ProcessInfo::IsGlashowResonance(void) const
 {
   return (fScatteringType == kScGlashowResonance);
+}
+//____________________________________________________________________________
+bool ProcessInfo::IsPhotonCoherent(void) const
+{
+  return (fScatteringType == kScPhotonCoherent);
+}
+//____________________________________________________________________________
+bool ProcessInfo::IsPhotonResonance(void) const
+{
+  return (fScatteringType == kScPhotonResonance);
 }
 //____________________________________________________________________________
 bool ProcessInfo::IsAMNuGamma(void) const

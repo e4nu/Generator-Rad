@@ -1,6 +1,6 @@
 //____________________________________________________________________________
 /*
- Copyright (c) 2003-2020, The GENIE Collaboration
+ Copyright (c) 2003-2022, The GENIE Collaboration
  For the full text of the license visit http://copyright.genie-mc.org
 
  Costas Andreopoulos <constantinos.andreopoulos \at cern.ch>
@@ -119,11 +119,7 @@ EventRecord * PhysInteractionSelector::SelectInteraction
      if (eval) {
            const InitialState & init = interaction->InitState();
            const ProcessInfo & proc  = interaction->ProcInfo();
-           // choose ref frame ('Lab' or 'Hit nucleon rest frame')
-           RefFrame_t frame = 
-              (proc.IsCoherentProduction() || proc.IsElectronScattering() || proc.IsGlashowResonance()) ? 
-              kRfLab : kRfHitNucRest;
-           double E = init.ProbeE(frame);
+           double E = init.ProbeE(kRfLab);
            if(TMath::IsNaN(E)) {
     		 BLOG("IntSel", pFATAL) << *interaction;
     		 BLOG("IntSel", pFATAL) << "E = " << E;
