@@ -118,7 +118,7 @@ const NaturalIsotopeElementData *
   }
   
   vector<NaturalIsotopeElementData*> vec = miter->second;
-  for (unsigned int i; i<vec.size(); i++) {
+  for (unsigned int i = 0 ; i<vec.size(); i++) {
     if (vec[i]->PdgCode()==pdgcode) return vec[i];
   }
 
