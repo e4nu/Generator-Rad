@@ -223,7 +223,7 @@
   <priority msgstream="HEDISStrucFunc">        WARN    </priority>
   <priority msgstream="LeptoHad">              ERROR   </priority>
 
-  <priority msgstream="gevgen">              WARN </priority>
+  <priority msgstream="gevgen">              INFO </priority>
   <priority msgstream="gevgen_dm">           NOTICE </priority>
   <priority msgstream="gevgen_ndcy">         NOTICE </priority>
   <priority msgstream="gevgen_atmo">         NOTICE </priority>
