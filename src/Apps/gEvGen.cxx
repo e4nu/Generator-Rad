@@ -497,9 +497,9 @@ GFluxI * TH1FluxDriver(void)
     //
     LOG("gevgen", pNOTICE) << "gOptFlux " << gOptFlux;
     vector<string> fv = utils::str::Split(gOptFlux,",");
-    LOG("gevgen", pNOTICE) << "flux root file: " << fv[0];
-    LOG("gevgen", pNOTICE) << "flux histogram " << fv[1];
-    assert(fv.size()==2 || fv.size()==3);
+    LOG("gevgen", pNOTICE) << "flux root file: " << fv[0].c_str();
+    LOG("gevgen", pNOTICE) << "flux histogram " << fv[1].c_str();
+    //assert(fv.size()==2 || fv.size()==3);
     assert( !gSystem->AccessPathName(fv[0].c_str()) );
 
     LOG("gevgen", pNOTICE) << "Getting input flux from root file: " << fv[0];
