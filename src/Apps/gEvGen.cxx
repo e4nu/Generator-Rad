@@ -495,7 +495,10 @@ GFluxI * TH1FluxDriver(void)
     //
     // ** extract specified flux histogram from the input root file
     //
+    LOG("gevgen", pNOTICE) << "gOptFlux " << gOptFlux;
     vector<string> fv = utils::str::Split(gOptFlux,",");
+    LOG("gevgen", pNOTICE) << "flux root file: " << fv[0];
+    LOG("gevgen", pNOTICE) << "flux histogram " << fv[1];
     assert(fv.size()==2 || fv.size()==3);
     assert( !gSystem->AccessPathName(fv[0].c_str()) );
 
