@@ -139,6 +139,8 @@ double NievesSimoVacasMECPXSec2016::XSec(
   double Q0    = interaction->Kine().GetKV(kKVQ0);
   double Q3    = interaction->Kine().GetKV(kKVQ3);
 
+  if (interaction->ProcInfo().IsWeakECC()) ml = interaction->InitState().Probe()->Mass();  // ADI: incoming lepton mass
+     
   const LabFrameHadronTensorI* tensor
     = dynamic_cast<const LabFrameHadronTensorI*>(
     fHadronTensorModel->GetTensor(tensor_pdg, genie::kHT_MEC_FullAll) );
@@ -166,6 +168,7 @@ double NievesSimoVacasMECPXSec2016::XSec(
   // hadron tensor.
   /// \todo Shouldn't we get this from the nuclear model?
   int nu_pdg = interaction->InitState().ProbePdg();
+  if (interaction->ProcInfo().IsWeakECC()) nu_pdg = interaction->FSPrimLeptonPdg(); // ADI: incoming lepton pdg
   double Q_value = genie::utils::mec::Qvalue(target_pdg, nu_pdg);
 
   // Apply Qvalue relative shift if needed:

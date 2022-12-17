@@ -265,6 +265,7 @@ double genie::TabulatedLabFrameHadronTensor::dSigma_dT_dCosTheta(
   double Tl      = interaction->Kine().GetKV(kKVTl);
   double cos_l   = interaction->Kine().GetKV(kKVctl);
   double ml      = interaction->FSPrimLepton()->Mass();
+  bool isECC 	 = interaction->ProcInfo().IsWeakECC();
 
   return dSigma_dT_dCosTheta(probe_pdg, E_probe, m_probe, Tl, cos_l, ml,
     Q_value);
@@ -274,6 +275,7 @@ double genie::TabulatedLabFrameHadronTensor::dSigma_dT_dCosTheta(int probe_pdg,
   double E_probe, double m_probe, double Tl, double cos_l, double ml,
   double Q_value) const
 {
+  bool isECC = true; //temp adi 
   // dSigma_dT_dCosTheta in GeV^(-3)
   double xsec = 0.;
 
@@ -284,6 +286,7 @@ double genie::TabulatedLabFrameHadronTensor::dSigma_dT_dCosTheta(int probe_pdg,
 
   // Energy transfer (uncorrected)
   double q0 = E_probe - El;
+  if (isECC ) q0 = -1*q0; // ADI fixing sign for ECC option 
 
   // The corrected energy transfer takes into account the binding
   // energy of the struck nucleon(s)

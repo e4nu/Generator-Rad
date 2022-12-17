@@ -34,5 +34,21 @@ MaxXSec-MinScanPointsCosth int      No         Number of scan points for Costh r
      
   </param_set>
   
+  <param_set name="ECC-Default"> 
+    
+    <param type="string" name="CommonParam"> MultiNucleons </param>
+    
+    <param type="alg" name="NuclearModel"> genie::NuclearModelMap/Default </param>
+
+    <!-- <param type="double" name="SuSA-MaxXSec-DiffTolerance"> 0.0 </param> -->
+    
+    <param type="double" name="MaxXSec-SafetyFactor"> 1.5 </param>
+    <param type="int" name="MaxXSec-FunctionCalls"> 1000 </param>
+    <param type="double" name="MaxXSec-RelativeTolerance"> 0.8 </param>
+    <param type="int" name="MaxXSec-MinScanPointsTmu" > 120 </param>
+    <param type="int" name="MaxXSec-MinScanPointsCosth" > 100 </param>
+     
+  </param_set>
+
 </alg_conf>
 

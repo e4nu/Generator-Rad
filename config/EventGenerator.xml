@@ -501,7 +501,7 @@ XSecModel                   alg     Yes  Cross section model used at the thread 
   </param_set>
 
   <!-- ADI e4nu EIC -->
-  <param_set name="QEL-ECC">
+  <param_set name="MEC-ECC">
      <param type="string" name="VldContext"> </param>
      <param type="int"    name="NModules">   5                                                   </param>
      <param type="alg"    name="Module-0">   genie::InitialStateAppender/Default                 </param>
@@ -511,9 +511,6 @@ XSecModel                   alg     Yes  Cross section model used at the thread 
      <param type="alg"    name="Module-4">   genie::UnstableParticleDecayer/AfterHadronTransport </param>
      <param type="alg"    name="ILstGen">    genie::MECInteractionListGenerator/ECC-Default       </param>
   </param_set>
-
-
-
 
   <param_set name="MEC-NC">
      <param type="string" name="VldContext"> </param>

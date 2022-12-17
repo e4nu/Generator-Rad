@@ -29,6 +29,14 @@ Name             Type     Optional   Comment               Default
         <param type="bool" name="is-CC"> true   </param>
         <param type="bool" name="is-NC"> false  </param>
         <param type="bool" name="is-EM"> false  </param>
+        <param type="bool" name="is-ECC"> false   </param>
+  </param_set>
+
+  <param_set name="ECC-Default">
+        <param type="bool" name="is-CC"> true   </param>
+        <param type="bool" name="is-NC"> false  </param>
+        <param type="bool" name="is-EM"> false  </param>
+        <param type="bool" name="is-ECC"> true   </param>
   </param_set>
 
   <param_set name="NC-Default">
