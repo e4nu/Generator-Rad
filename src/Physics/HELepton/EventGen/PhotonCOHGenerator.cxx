@@ -70,7 +70,7 @@ void PhotonCOHGenerator::ProcessEventRecord(GHepRecord * evrec) const
   const InitialState & init_state = interaction->InitState();
 
   //incoming v & struck particle & remnant nucleus
-  GHepParticle * nu = evrec->Probe();
+  GHepParticle * nu = evrec->CorrectProbe();
 
   GHepParticle * target = evrec -> TargetNucleus();
   if(target) evrec->AddParticle(target->Pdg(), kIStFinalStateNuclearRemnant, 1,-1,-1,-1, *(target->P4()), *(target->X4()) );

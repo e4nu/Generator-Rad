@@ -66,7 +66,7 @@ void HENuElGenerator::ProcessEventRecord(GHepRecord * event) const
   const ProcessInfo &  proc_info  = interaction->ProcInfo();
 
   //incoming v & struck particle & remnant nucleus
-  GHepParticle * nu = event->Probe();
+  GHepParticle * nu = event->CorrectProbe();
 
   GHepParticle * target = event -> TargetNucleus();
   if(target) event->AddParticle(target->Pdg(), kIStFinalStateNuclearRemnant, 1,-1,-1,-1, *(target->P4()), *(target->X4()) );
