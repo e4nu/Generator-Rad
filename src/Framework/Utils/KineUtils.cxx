@@ -170,6 +170,7 @@ double genie::utils::kinematics::Jacobian(
   else
   if ( TransformMatched(fromps,tops,kPSQ2fE,kPSlogQ2fE,forward) )
   {
+    std::cout << kine.Q2() << std::endl;
     J = 1. / kine.Q2();
   }
 
@@ -179,6 +180,7 @@ double genie::utils::kinematics::Jacobian(
   else
   if ( TransformMatched(fromps,tops,kPSQD2fE,kPSQ2fE,forward) )
   {
+    std::cout << " IS @ : " << kine.Q2() << std::endl;
     J = TMath::Power(1+kine.Q2()/controls::kMQD2,-2)/controls::kMQD2;
   }
 
