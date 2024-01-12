@@ -65,8 +65,10 @@ STFC, Rutherford Appleton Laboratory
   -->
 
   <param type="alg" name="XSecModel@genie::EventGenerator/QEL-EM">         genie::HybridXSecAlgorithm/SuSAv2-QEL </param>
+  <param type="alg" name="XSecModel@genie::EventGenerator/QEL-EM-radcorr">         genie::HybridXSecAlgorithm/SuSAv2-QEL </param>
 
   <param type="alg" name="XSecModel@genie::EventGenerator/RES-EM">         genie::BergerSehgalRESPXSec2014/EM-NoPauliBlock </param>
+  <param type="alg" name="XSecModel@genie::EventGenerator/RES-EM-radcorr">         genie::BergerSehgalRESPXSec2014/EM-NoPauliBlock </param>
 
   <param type="alg" name="XSecModel@genie::EventGenerator/DIS-EM">         genie::KNOTunedQPMDISPXSec/Default </param>
 
