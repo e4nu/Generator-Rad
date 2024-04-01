@@ -172,7 +172,7 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
 	      L2 = TMath::Log(1194.) - (2./3)*TMath::Log(Z);
 	   }
            b = (1./9)*(12 + float(Z+1)/(Z*L1 + L2));
-	   std::cout << " b = " << b << std::endl;
+	  // std::cout << " b = " << b << std::endl;
 	}
 	if (fModel == "simple") {
 	   double lambda = (kAem/kPi)*(2*TMath::Log(2*init_state_ptr->ProbeE(kRfLab)/kElectronMass) - 1) + b*fThickness;
@@ -180,7 +180,7 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
            f->SetParameter(0,lambda);
            f->SetParameter(1,pow(init_state_ptr->ProbeE(kRfLab),-1.*lambda));
            energyLoss = f->GetRandom();
-	   std::cout << " energy loss simple " << energyLoss << std::endl;
+	   //std::cout << " energy loss simple " << energyLoss << std::endl;
            delete f;
            LOG("RadiativeCorrector", pDEBUG) << "Simple Energy loss is "<<energyLoss;    
 	}
@@ -190,8 +190,8 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
            g = b*fThickness + lambda_e;
 	   LOG("RadiativeCorrector", pINFO) << "SIMC chosen Thickness "<<fThickness<<" lambda e  is "<<lambda_e<<" g "<<g<<" b "<<b;
 
-	   if( fISR ) std::cout << " lambda_e ISR " << lambda_e << std::endl;
-	   else std::cout << " lambda_e OSR " << lambda_e << std::endl;
+	   //if( fISR ) std::cout << " lambda_e ISR " << lambda_e << std::endl;
+	   //else std::cout << " lambda_e OSR " << lambda_e << std::endl;
 	   power_hi = pow(e_gamma_max,g);
 	   //power_lo  = pow(e_gamma_min,g);
 	   power_lo  = pow(fCutoff,g);
@@ -208,7 +208,7 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
            f->SetParameter(0,g);
            f->SetParameter(1,power_hi - power_lo);
            energyLoss = f->GetRandom();
-	   std::cout << " energy loss smc " << energyLoss << std::endl;
+	   //std::cout << " energy loss smc " << energyLoss << std::endl;
            delete f;
            LOG("RadiativeCorrector", pINFO) << "SIMC Energy loss is "<<energyLoss;
 
@@ -248,7 +248,7 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
 	    LOG("RadiativeCorrector", pINFO) << "Applying ISR part of the radiative correction weight "<<evrec->Weight() * radcor_weight;
           }
 	  
-	  if (energyLoss<fCutoff) std::cout<<"CHECK BAD "<<std::endl;
+	  //if (energyLoss<fCutoff) std::cout<<"CHECK BAD "<<std::endl;
 	  LOG("RadiativeCorrector", pDEBUG) << "performing ISR correction for: " << p->Name() << " reduced energy is : "<<p4tag.E();
 	  // changing the probe energy for the initial state 
 	  init_state_ptr->SetProbeP4(p4tag);
@@ -296,14 +296,14 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
 						    - (1./4.) * pow(TMath::Log(init_state_ptr->ProbeE(kRfLab)*p4tag.E()),2)
 						    - (1./2.) * ( (pow(kPi,2)/6) -  TMath::DiLog(TMath::Power(TMath::Cos(0.5*p4tag.Theta()),2.)) ) );
 
-
+/*
 		std::cout<<"(13./12.)* (TMath::Log(kine->Q2(true)/pow(kElectronMass,2)) - 1) "<<(13./12.)* (TMath::Log(kine->Q2(true)/pow(kElectronMass,2)) - 1)<<std::endl;
 		std::cout<<"init_state_ptr->ProbeE(kRfLab) "<<init_state_ptr->ProbeE(kRfLab)<<std::endl;
                 std::cout<<"kine->FSLeptonP4().E() " <<kine->FSLeptonP4().E()<<" fP4l.E() "<<fP4l.E()<<" p4tag.E() "<<p4tag.E()<<std::endl;
                 std::cout<<"(1./4.) * pow(TMath::Log(init_state_ptr->ProbeE(kRfLab)*kine->FSLeptonP4().E()),2) "<< (1./4.) * pow(TMath::Log(init_state_ptr->ProbeE(kRfLab)*kine->FSLeptonP4().E()),2)<<std::endl;
                 std::cout<<"TMath::DiLog(TMath::Power(TMath::Cos(0.5*p4tag.Theta()),2.)) " <<TMath::DiLog(TMath::Power(TMath::Cos(0.5*p4tag.Theta()),2.))<<std::endl;
 		std::cout<<"radcor_weight "<<radcor_weight<<std::endl;
-		
+*/		
 	   }
 
            if(fModel=="simc")
@@ -374,7 +374,7 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
 
  	   //if ( energyLoss > 0 || evrec->Weight() > 1)
 	   //{ LOG("RadiativeCorrector", pDEBUG) << "Applying radiative correction weight "<<evrec->Weight()<<" radcor_weight " <<radcor_weight;
-	     std::cout << "Applying radiative correction weight "<<evrec->Weight()<<" radcor_weight " <<radcor_weight<<std::endl;
+	   //  std::cout << "Applying radiative correction weight "<<evrec->Weight()<<" radcor_weight " <<radcor_weight<<std::endl;
 	     evrec->SetWeight(evrec->Weight() * radcor_weight);
 	   //}
 	}
