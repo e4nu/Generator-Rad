@@ -360,7 +360,7 @@ Or changing the name of this parameter set
                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          GENIE Radiative Correction  
     -->
-     <param type="string"  name="RadiativeCorrectionModel"> simple </param>
+     <param type="string"  name="RadiativeCorrectionModel"> simc </param>
      <param type="double"  name="RadiativeCorrectionCutoff"> 0.0001 </param>
      <param type="double"  name="RadiativeCorrectionThickness_1000010010"> 0.027760 </param>  <!--H -->
      <param type="double"  name="RadiativeCorrectionThickness_1000020040"> 0.005772 </param>  <!--He -->
