@@ -154,7 +154,6 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
         if (fISR) lambda_e = (kAem/kPi)*( 2*TMath::Log(2*p->P4()->P()/kElectronMass) -1 + TMath::Log(0.5*(1-fP4l.CosTheta())) );//+ 2*TMath::Log(init_state_ptr->GetProbeP4(kRfLab)->P()/fP4l.E()) + TMath::Log(0.5*(1-fP4l.CosTheta() ) ) );
 	else lambda_e =      (kAem/kPi)*( 2*TMath::Log(2*p->P4()->P()/kElectronMass) -1 + TMath::Log(0.5*(1-kine->FSLeptonP4().CosTheta())) );//+ 2*TMath::Log(init_state_ptr->GetProbeP4(kRfLab)->P()/kine->FSLeptonP4().E()) + TMath::Log(0.5*(1-kine->FSLeptonP4().CosTheta() ) ) );
         g = b*fThickness + lambda_e;
-	LOG("RadiativeCorrector", pINFO) << "SIMC chosen Thickness "<<fThickness<<" lambda e  is "<<lambda_e<<" g "<<g<<" b "<<b;
 
 	power_hi = pow(e_gamma_max,g);
 	power_lo  = pow(fCutoff,g);
