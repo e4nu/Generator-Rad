@@ -175,7 +175,8 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
 	  // std::cout << " b = " << b << std::endl;
 	}
 	if (fModel == "simple") {
-	   double lambda = (kAem/kPi)*(2*TMath::Log(2*init_state_ptr->ProbeE(kRfLab)/kElectronMass) - 1) + b*fThickness;
+	   double Thickness = 0.02776;
+	   double lambda = (kAem/kPi)*(2*TMath::Log(2*init_state_ptr->ProbeE(kRfLab)/kElectronMass) - 1) + b*Thickness;
 	   TF1 *f = new TF1("f","[0]*pow(x,[0]-1)/[1]",e_gamma_min,e_gamma_max);
            f->SetParameter(0,lambda);
            f->SetParameter(1,pow(init_state_ptr->ProbeE(kRfLab),-1.*lambda));
@@ -187,8 +188,9 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
 	if (fModel == "simc") {
 	   if (fISR) lambda_e = (kAem/kPi)*( 2*TMath::Log(2*p->P4()->P()/kElectronMass) -1 + TMath::Log(0.5*(1-fP4l.CosTheta())) );//+ 2*TMath::Log(init_state_ptr->GetProbeP4(kRfLab)->P()/fP4l.E()) + TMath::Log(0.5*(1-fP4l.CosTheta() ) ) );
 	   else lambda_e =      (kAem/kPi)*( 2*TMath::Log(2*p->P4()->P()/kElectronMass) -1 + TMath::Log(0.5*(1-kine->FSLeptonP4().CosTheta())) );//+ 2*TMath::Log(init_state_ptr->GetProbeP4(kRfLab)->P()/kine->FSLeptonP4().E()) + TMath::Log(0.5*(1-kine->FSLeptonP4().CosTheta() ) ) );
-           g = b*fThickness + lambda_e;
-	   LOG("RadiativeCorrector", pINFO) << "SIMC chosen Thickness "<<fThickness<<" lambda e  is "<<lambda_e<<" g "<<g<<" b "<<b;
+           double Thickness = 0.02776;
+	   g = b*Thickness + lambda_e;
+	   LOG("RadiativeCorrector", pINFO) << "SIMC chosen Thickness "<<Thickness<<" lambda e  is "<<lambda_e<<" g "<<g<<" b "<<b;
 
 	   //if( fISR ) std::cout << " lambda_e ISR " << lambda_e << std::endl;
 	   //else std::cout << " lambda_e OSR " << lambda_e << std::endl;
@@ -236,14 +238,15 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
 
 	if (fISR && !radDone && energyLoss>0) {
 	  if(fModel =="simc") {
-            double C = g/(TMath::Gamma(1+b*fThickness)*pow(p4.P(),b*fThickness)*pow(p4.P()*p4tag.P(),lambda_e/2)); 
+	    double Thickness = 0.02776;
+            double C = g/(TMath::Gamma(1+b*Thickness)*pow(p4.P(),b*Thickness)*pow(p4.P()*p4tag.P(),lambda_e/2)); 
             double W_rad_e = (C/g)*(power_hi-power_lo);
-            //double Phi_ext_e = 1. - ( (b*fThickness/2)/(b*fThickness/2 + lambda_e) )*( p4.E()/p4.P()  );
-            double Phi_ext_e = 1. - ( (b*fThickness) / p4.E() / g * p4RadGamma.E()) ;
+            //double Phi_ext_e = 1. - ( (b*Thickness/2)/(b*Thickness/2 + lambda_e) )*( p4.E()/p4.P()  );
+            double Phi_ext_e = 1. - ( (b*Thickness) / p4.E() / g * p4RadGamma.E()) ;
             double radcor_weight = W_rad_e*Phi_ext_e;
 	    if( fDoInternal) evrec->SetWeight(evrec->Weight() * radcor_weight);
             //std::cout<<"weights C "<<C<<" g "<<g<<" W_rad_e "<<W_rad_e<<" Phi_ext_e "<<Phi_ext_e<<std::endl; 
-	    //std::cout<<"weights b "<<b<<" fThickness "<<fThickness<<" p4.E() "<<p4.E()<<" p4RadGamma.E() "<<p4RadGamma.E()<<std::endl;
+	    //std::cout<<"weights b "<<b<<" Thickness "<<Thickness<<" p4.E() "<<p4.E()<<" p4RadGamma.E() "<<p4RadGamma.E()<<std::endl;
 	    std::cout << "simc weight = " << radcor_weight << " W_rad_e = (C/g)*(power_hi-power_lo) : " << W_rad_e << " Phi_ext_e = " << Phi_ext_e << std::endl;
 	    LOG("RadiativeCorrector", pINFO) << "Applying ISR part of the radiative correction weight "<<evrec->Weight() * radcor_weight;
           }
@@ -311,11 +314,12 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
                 //double tot_delta    = (1./(3*kPi))*( -5./3 + TMath::Log(kine->Q2(true)/pow(kElectronMass,2)) );
 		//double delta_hard   = 2*kAem*( (-3./(4*kPi))*TMath::Log(kine->Q2(true)/pow(kElectronMass,2)) + 1./kPi - 2*tot_delta );
 		double delta_hard   = -1.*(kAem/kPi)*(-28./9.+(13./6.)*TMath::Log(kine->Q2(true)/pow(kElectronMass,2)));
+		double Thickness = 0.02776;
 		//double c          = lambda_e/pow(evrec->CorrectProbe()->GetP4()->E() * kine->FSLeptonP4().E(),(lambda_e/2.));
-		double C            = g/(TMath::Gamma(1+b*fThickness)*pow(p4.P(),b*fThickness)*pow(p4.P()*p4tag.P(),lambda_e/2));
+		double C            = g/(TMath::Gamma(1+b*Thickness)*pow(p4.P(),b*Thickness)*pow(p4.P()*p4tag.P(),lambda_e/2));
                 double W_rad_el     = (C/g)*(power_hi-power_lo);
-                //double Phi_ext_el = 1. - ( (b*fThickness/2)/(b*fThickness/2 + lambda_e) )*( p4.E()/p4.P() );
-                double Phi_ext_el   = 1. - ( (b*fThickness) / p4.E() / g * p4RadGamma.E()) ;
+                //double Phi_ext_el = 1. - ( (b*Thickness/2)/(b*Thickness/2 + lambda_e) )*( p4.E()/p4.P() );
+                double Phi_ext_el   = 1. - ( (b*Thickness) / p4.E() / g * p4RadGamma.E()) ;
 		double W_rad_pl     = 1.;
                 double Phi_ext_pl   = 1.;
                 if (fDoInternal) radcor_weight       = W_rad_el*W_rad_pl*Phi_ext_el*Phi_ext_pl*(1-delta_hard);
@@ -327,15 +331,15 @@ void RadiativeCorrector::ProcessEventRecord(GHepRecord * evrec) const
 		// crisis attempt 
 		double lambda_e_ISR   = (kAem/kPi)*( 2*TMath::Log(2*init_state_ptr->GetProbeP4(kRfLab)->P()/kElectronMass) -1 + TMath::Log(0.5*(1-fP4l.CosTheta())) );
                 double lambda_e_FSR   =      (kAem/kPi)*( 2*TMath::Log(2*p->P4()->P()/kElectronMass) -1 + TMath::Log(0.5*(1-kine->FSLeptonP4().CosTheta())) );
-                double g_ISR          = b*fThickness + lambda_e_ISR;
-                double g_FSR          = b*fThickness + lambda_e_FSR;
-		double extrad_phi_ISR = 1. - (b*fThickness/init_state_ptr->ProbeE(kRfLab) + b*fThickness/kine->FSLeptonP4().E() ) / (g_ISR+g_FSR) * (init_state_ptr->ProbeE(kRfLab) - evrec->CorrectProbe()->GetP4()->P() );
-	        double extrad_phi_FSR = 1. - b*fThickness/kine->FSLeptonP4().E() / g_FSR * p4RadGamma.E();
-		double C_ISR = b*fThickness/pow(init_state_ptr->ProbeE(kRfLab),b*fThickness)/TMath::Gamma(1+b*fThickness);
-		double C_FSR = b*fThickness/pow(kine->FSLeptonP4().E()        ,b*fThickness)/TMath::Gamma(1+b*fThickness);
-		double g_ext = 2*b*fThickness; 
+                double g_ISR          = b*Thickness + lambda_e_ISR;
+                double g_FSR          = b*Thickness + lambda_e_FSR;
+		double extrad_phi_ISR = 1. - (b*Thickness/init_state_ptr->ProbeE(kRfLab) + b*Thickness/kine->FSLeptonP4().E() ) / (g_ISR+g_FSR) * (init_state_ptr->ProbeE(kRfLab) - evrec->CorrectProbe()->GetP4()->P() );
+	        double extrad_phi_FSR = 1. - b*Thickness/kine->FSLeptonP4().E() / g_FSR * p4RadGamma.E();
+		double C_ISR = b*Thickness/pow(init_state_ptr->ProbeE(kRfLab),b*Thickness)/TMath::Gamma(1+b*Thickness);
+		double C_FSR = b*Thickness/pow(kine->FSLeptonP4().E()        ,b*Thickness)/TMath::Gamma(1+b*Thickness);
+		double g_ext = 2*b*Thickness; 
 		double c_ext = C_ISR*C_FSR * g_ext; //c_ext(1)*c_ext(2) * g_ext / bt(1)/bt(2)
-		c_ext = c_ext * TMath::Gamma(1+b*fThickness) * TMath::Gamma(1+b*fThickness) / TMath::Gamma(1 + g_ext);
+		c_ext = c_ext * TMath::Gamma(1+b*Thickness) * TMath::Gamma(1+b*Thickness) / TMath::Gamma(1 + g_ext);
 		//std::cout<<"Weight try extrad_phi_ISR "<<extrad_phi_ISR<<" extrad_phi_FSR "<<extrad_phi_FSR<<" c_ext "<<c_ext<<std::endl;
 		//std::cout<<" C_ISR "<<C_ISR<<" C_FSR "<<C_FSR<<" g_ext "<<g_ext<<std::endl;
 		//bei= (-1./(2.*pi))*log(ein/egamma)
